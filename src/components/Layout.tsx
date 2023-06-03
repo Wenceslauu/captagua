@@ -1,7 +1,13 @@
+import { ReactNode } from "react";
+
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-export default function Layout({ children }) {
+interface Props {
+  children: ReactNode
+}
+
+export default function Layout({ children }: Props) {
   return (
     <>
       <Navbar />

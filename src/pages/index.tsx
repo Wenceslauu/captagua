@@ -68,7 +68,7 @@ export default function Home({
       datasets: [
         {
           label: "Corrente",
-          data: sensors.map((sensor) => sensor.fluxo_agua),
+          data: [20, 30, 30],
           borderColor: "#10b981",
         },
       ],
@@ -88,7 +88,7 @@ export default function Home({
       datasets: [
         {
           label: "Potência",
-          data: sensors.map((sensor) => 5 * sensor.fluxo_agua),
+          data: [20, 30, 30].map((corrente) => 5 * corrente),
           borderColor: "#10b981",
         },
       ],
@@ -98,7 +98,7 @@ export default function Home({
       datasets: [
         {
           label: "Valor economizado (em energia)",
-          data: sensors.map((sensor) => sensor.fluxo_agua),
+          data: [150, 180, 185],
           borderColor: "#eab308",
         },
       ],
