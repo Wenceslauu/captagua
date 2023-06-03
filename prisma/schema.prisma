@@ -1,0 +1,14 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model umidade_solo {
+  id           Int   @id @default(autoincrement())
+  umidade_solo Float @db.Float
+  fluxo_agua   Float @db.Float
+}

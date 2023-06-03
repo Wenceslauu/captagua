@@ -1,13 +1,21 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { prisma } from '../../../prisma/client.ts'
 
 type Data = {
-  name: string
+  umidade: number
+  fluxo: number
 }
 
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  const { umidade, fluxo } = prisma.umidade_solo.findFirst({
+    orderBy: {
+      id: 'desc'
+    }
+  })
+
+  res.status(200).json({ umidade, fluxo })
 }
