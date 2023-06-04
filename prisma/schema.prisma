@@ -12,3 +12,13 @@ model umidade_solo {
   umidade_solo Float @db.Float
   fluxo_agua   Float @db.Float
 }
+
+model tbl_dates {
+  id                Int      @id @default(autoincrement()) @db.SmallInt
+  data_hora         DateTime @db.Timestamp(0)
+  umidade_solo      Float    @db.Float
+  fluxo_agua        Float    @db.Float
+  corrente_bateria  Float    @db.Float
+  potencia_circuito Float    @db.Float
+  valor_economizado Float    @db.Float
+}

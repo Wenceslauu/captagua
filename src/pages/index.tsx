@@ -7,40 +7,22 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
+import dayjs from "dayjs";
+
 import Layout from "@/components/Layout";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import { prisma } from "../../prisma/client.ts";
-import { umidade_solo } from "@prisma/client";
+import { tbl_dates } from "@prisma/client";
 
 export default function Home({
   sensors,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 
-  // const labels = sensors.map((sensor) => sensor.id);
-  const labels = ["09:00", "12:00", "15:00"];
-
-  const options = {
-    responsive: true,
-    scales: {
-      x: {
-        display: true,
-        title: {
-          display: true,
-          text: "Month",
-        },
-      },
-      y: {
-        display: true,
-        title: {
-          display: true,
-          text: "Value",
-        },
-        beginAtZero: true,
-      },
-    },
-  };
+  const labels = sensors.map((sensor) =>
+    dayjs(sensor.data_hora).format("HH:mm")
+  );
 
   const data = [
     {
@@ -68,7 +50,7 @@ export default function Home({
       datasets: [
         {
           label: "Corrente",
-          data: [20, 30, 30],
+          data: sensors.map((sensor) => sensor.corrente_bateria),
           borderColor: "#10b981",
         },
       ],
@@ -88,7 +70,7 @@ export default function Home({
       datasets: [
         {
           label: "Potência",
-          data: [20, 30, 30].map((corrente) => 5 * corrente),
+          data: sensors.map((sensor) => sensor.potencia_circuito),
           borderColor: "#10b981",
         },
       ],
@@ -98,7 +80,7 @@ export default function Home({
       datasets: [
         {
           label: "Valor economizado (em energia)",
-          data: [150, 180, 185],
+          data: sensors.map((sensor) => sensor.valor_economizado),
           borderColor: "#eab308",
         },
       ],
@@ -126,7 +108,7 @@ export default function Home({
                     display: true,
                     title: {
                       display: true,
-                      text: "Umidade (g/m³)",
+                      text: "Umidade (%)",
                     },
                     beginAtZero: true,
                   },
@@ -180,7 +162,7 @@ export default function Home({
                     display: true,
                     title: {
                       display: true,
-                      text: "Corrente (A)",
+                      text: "Corrente (mA)",
                     },
                     beginAtZero: true,
                   },
@@ -232,7 +214,7 @@ export default function Home({
                     display: true,
                     title: {
                       display: true,
-                      text: "Potência (W)",
+                      text: "Potência (kW)",
                     },
                     beginAtZero: true,
                   },
@@ -259,7 +241,7 @@ export default function Home({
                   display: true,
                   title: {
                     display: true,
-                    text: "Energia (kWh)",
+                    text: "Dinheiro (R$)",
                   },
                   beginAtZero: true,
                 },
@@ -274,12 +256,19 @@ export default function Home({
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  sensors: umidade_solo[];
+  sensors: tbl_dates[];
 }> = async () => {
-  const sensors = await prisma.umidade_solo.findMany({
+  let sensors = await prisma.tbl_dates.findMany({
     orderBy: {
       id: "asc",
     },
+  });
+
+  sensors = sensors.map((sensor) => {
+    return {
+      ...sensor,
+      data_hora: JSON.parse(JSON.stringify(sensor.data_hora)),
+    };
   });
 
   return { props: { sensors } };
