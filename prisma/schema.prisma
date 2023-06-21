@@ -87,7 +87,7 @@ model auth_user_user_permissions {
 }
 
 model core_leiturasensor {
-  id                Int      @id
+  id                Int      @id @default(autoincrement())
   data_hora         DateTime @db.Timestamp(0)
   umidade_solo      Float
   fluxo_agua        Float
