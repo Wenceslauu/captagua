@@ -273,5 +273,5 @@ export const getServerSideProps: GetServerSideProps<{
     };
   });
 
-  return { props: { sensors } };
+  return { props: { sensors: sensors.slice(-5) } };
 };
