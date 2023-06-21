@@ -13,7 +13,7 @@ import Layout from "@/components/Layout";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import { prisma } from "../../prisma/client.ts";
-import { tbl_dates } from "@prisma/client";
+import { core_leiturasensor } from "@prisma/client";
 
 export default function Home({
   sensors,
@@ -256,9 +256,9 @@ export default function Home({
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  sensors: tbl_dates[];
+  sensors: core_leiturasensor[];
 }> = async () => {
-  let sensors = await prisma.tbl_dates.findMany({
+  let sensors = await prisma.core_leiturasensor.findMany({
     orderBy: {
       id: "asc",
     },
