@@ -21,8 +21,7 @@ export default function Home({
   Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
   
   const labels = sensors.map((sensor) =>
-    // Add 3 hours due to dayjs timezone bug
-    dayjs(sensor.data_hora).add(3, 'hour').format("HH:mm")
+    dayjs(sensor.data_hora).format("HH:mm")
   );
 
   const data = [
