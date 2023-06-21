@@ -18,7 +18,7 @@ export default function About() {
             médios agricultores, por meio da captação de águas pluviais e seu
             uso em sistemas de irrigação movidos a energia solar.
           </p>
-          <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex flex-col justify-center lg:flex-row gap-4">
               <Image src='/images/farm-mockup.png' alt='A farm mockup' height={360} width={360} style={{ 
                 objectFit: 'cover',
               }} />
