@@ -19,9 +19,11 @@ export default function Home({
   sensors,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
-
+  
+  console.log(sensors)
   const labels = sensors.map((sensor) =>
-    dayjs(sensor.data_hora).format("HH:mm")
+    // Add 3 hours due to dayjs timezone bug
+    dayjs(sensor.data_hora).add(3, 'hour').format("HH:mm")
   );
 
   const data = [
