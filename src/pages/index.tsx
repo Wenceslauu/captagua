@@ -20,7 +20,6 @@ export default function Home({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
   
-  console.log(sensors)
   const labels = sensors.map((sensor) =>
     // Add 3 hours due to dayjs timezone bug
     dayjs(sensor.data_hora).add(3, 'hour').format("HH:mm")
@@ -94,7 +93,7 @@ export default function Home({
       <div className="flex flex-col items-center gap-2">
         <div className="flex flex-row flex-wrap justify-between items-center gap-8">
           <div className="flex-1 flex flex-col justify-center items-center">
-            <span className="ml-8">Umidade</span>
+            <span className="ml-8">Umidade do solo</span>
             <Line
               options={{
                 responsive: true,
@@ -120,7 +119,7 @@ export default function Home({
             />
           </div>
           <div className="flex-1 flex flex-col justify-center items-center">
-            <span className="ml-8">Fluxo</span>
+            <span className="ml-8">Fluxo de água</span>
             <Line
               options={{
                 responsive: true,
@@ -148,7 +147,7 @@ export default function Home({
         </div>
         <div className="flex flex-row flex-wrap justify-between items-center gap-8">
           <div className="flex-1 flex flex-col justify-center items-center">
-            <span className="ml-8">Corrente</span>
+            <span className="ml-8">Corrente elétrica</span>
             <Line
               options={{
                 responsive: true,
@@ -174,7 +173,7 @@ export default function Home({
             />
           </div>
           <div className="flex-1 flex flex-col justify-center items-center">
-            <span className="ml-8">Tensão</span>
+            <span className="ml-8">Tensão elétrica</span>
             <Line
               options={{
                 responsive: true,
@@ -200,7 +199,7 @@ export default function Home({
             />
           </div>
           <div className="flex-1 flex flex-col justify-center items-center">
-            <span className="ml-8">Potência</span>
+            <span className="ml-8">Potência elétrica</span>
             <Line
               options={{
                 responsive: true,
